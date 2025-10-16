@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:donut_app/utils/my_tab.dart';
+import 'package:donut_app/tab/burger_tab.dart';
+import 'package:donut_app/tab/donut_tab.dart';
+import 'package:donut_app/tab/pancake.dart';
+import 'package:donut_app/tab/pizza_tab.dart';
+import 'package:donut_app/tab/smoothie_tab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     //burger tab
     MyTab(iconPath: 'lib/icons/burger.png', iconName: 'Burger'),
     //smoothie tab
-    MyTab(iconPath: 'lib/icons/smoothie.png', iconName: 'Smothie'),
+    MyTab(iconPath: 'lib/icons/smoothie.png', iconName: 'Smoothie'),
     //pancakes tab
     MyTab(iconPath: 'lib/icons/pancakes.png', iconName: 'PanCake'),
     //pizza tab
@@ -62,6 +67,18 @@ class _HomePageState extends State<HomePage> {
             //2. Pestañas (TabBar)
             TabBar(tabs: myTabs),
             //3. Contenido de las pestañas (TabBarView)
+            SizedBox(height: 30),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  DonutTab(),
+                  BurgerTab(),
+                  SmoothieTab(),
+                  PanCakeTab(),
+                  PizzaTab(),
+                ],
+              ),
+            ),
 
             //4. Carrito (Cart)
           ],
