@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DonutTile extends StatelessWidget {
   final String donutFlavor;
@@ -45,9 +46,9 @@ class DonutTile extends StatelessWidget {
                   ),
                   child: Text(
                     "\$$donutPrice",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                    style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 20,
                       color: donutColor[800],
                     ),
                   ),
@@ -55,17 +56,21 @@ class DonutTile extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
               child: Image.asset(donutImagePath),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             Text(
               donutFlavor,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: GoogleFonts.roboto(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900],
+              ),
             ),
             Text(
               donutProvider,
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              style: GoogleFonts.roboto(fontSize: 18, color: Colors.grey[600]),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -73,17 +78,23 @@ class DonutTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   //Favorito
-                  Icon(Icons.favorite, color: Colors.pink),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Icon(Icons.favorite, color: Colors.redAccent),
+                  ),
                   //Agregar
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Add',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
-                        color: Colors.black,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Add',
+                        style: GoogleFonts.roboto(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w900,
+                          decoration: TextDecoration.underline,
+                          color: Colors.grey[900],
+                        ),
                       ),
                     ),
                   ),

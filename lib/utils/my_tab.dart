@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyTab extends StatelessWidget {
   final String iconPath;
@@ -7,25 +8,23 @@ class MyTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Tab(
-      height: 100,
+    return Padding(
+      padding: const EdgeInsets.symmetric(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           // contenedor solo para la imagen
           Container(
-            width: 75,
-            height: 75,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(25),
             ),
             child: Image.asset(iconPath, color: Colors.grey[600]),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 10),
           // texto colocado debajo del contenedor
-          Text(iconName, style: const TextStyle(fontSize: 12)),
+          Text(iconName, style: GoogleFonts.roboto(fontSize: 14)),
         ],
       ),
     );
