@@ -17,10 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: const HomePage(),
-      ),
+      home: const HomePage(),
     );
   }
 }

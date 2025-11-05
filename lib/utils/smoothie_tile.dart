@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DonutTile extends StatelessWidget {
+class SmoothieTile extends StatelessWidget {
   final String donutFlavor;
   final String donutPrice;
   final dynamic donutColor;
   final String donutImagePath;
   final String donutProvider;
   final Function(String, double, String) onAddToCart;
-  const DonutTile({
+
+  const SmoothieTile({
     super.key,
     required this.donutFlavor,
     required this.donutPrice,
@@ -93,11 +94,8 @@ class DonutTile extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 8),
                     child: TextButton(
                       onPressed: () {
-                        onAddToCart(
-                          donutFlavor,
-                          double.parse(donutPrice),
-                          donutImagePath,
-                        );
+                        final price = double.tryParse(donutPrice) ?? 0.0;
+                        onAddToCart(donutFlavor, price, donutImagePath);
                       },
                       child: Text(
                         'Add',

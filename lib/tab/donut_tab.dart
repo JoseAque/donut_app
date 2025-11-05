@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:donut_app/utils/donut_tile.dart';
 
 class DonutTab extends StatelessWidget {
-  DonutTab({super.key});
+  final Function(String, double, String) onAddToCart;
+  DonutTab({super.key, required this.onAddToCart});
 
   //List of donuts
   final List donutOnSale = [
@@ -29,6 +30,34 @@ class DonutTab extends StatelessWidget {
       'lib/images/icecream_donut.png',
       'Krispy kreme',
     ],
+    [
+      'Azucaradas',
+      '130', // Updated price
+      Colors.pink,
+      'lib/images/azucaradas.png',
+      'Carls Junior',
+    ],
+    [
+      'Choco Crema',
+      '140', // Updated price
+      Colors.brown,
+      'lib/images/choco_crema.png',
+      'Carls Junior',
+    ],
+    [
+      'Chispas',
+      '150', // Updated price
+      Colors.orange,
+      'lib/images/crema_chispas.png',
+      'Carls Junior',
+    ],
+    [
+      'Caramelo',
+      '160', // Updated price
+      Colors.amber,
+      'lib/images/caramelo.png',
+      'Carls Junior',
+    ],
   ];
 
   @override
@@ -38,7 +67,7 @@ class DonutTab extends StatelessWidget {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         //Numero de columnas
         crossAxisCount: 2,
-        childAspectRatio: 1 / 1.35,
+        childAspectRatio: 1 / 1.30,
       ),
       itemCount: donutOnSale.length,
       //Lo que se va a contruir en el grid(el contenido)
@@ -49,6 +78,8 @@ class DonutTab extends StatelessWidget {
           donutColor: donutOnSale[index][2],
           donutImagePath: donutOnSale[index][3],
           donutProvider: donutOnSale[index][4],
+          onAddToCart: (name, price, imagePath) =>
+              onAddToCart(name, price, imagePath),
         );
       },
     );

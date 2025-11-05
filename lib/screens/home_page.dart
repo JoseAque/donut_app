@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:donut_app/utils/my_tab.dart';
 import 'package:donut_app/tab/burger_tab.dart';
 import 'package:donut_app/tab/donut_tab.dart';
-import 'package:donut_app/tab/pancake.dart';
+import 'package:donut_app/tab/pancake_tab.dart';
 import 'package:donut_app/tab/pizza_tab.dart';
 import 'package:donut_app/tab/smoothie_tab.dart';
+import 'package:donut_app/utils/cart_item.dart';
+import 'package:donut_app/utils/cart_bottom_sheet.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,6 +17,46 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<CartItem> cartItems = [];
+
+  //Getters para el contador y total
+  int get itemCount => cartItems.fold(0, (sum, item) => sum + item.quantity);
+  double get totalPrice =>
+      cartItems.fold(0.0, (sum, item) => sum + (item.price * item.quantity));
+
+  //Función para agregar items al carrito
+  void addToCart(String name, double price, String imagePath) {
+    setState(() {
+      //Buscar si el producto ya está en el carrito
+      final existingItemIndex = cartItems.indexWhere(
+        (item) => item.name == name,
+      );
+
+      if (existingItemIndex != -1) {
+        //Si ya existe, incrementar la cantidad
+        cartItems[existingItemIndex].quantity++;
+      } else {
+        //Si no existe, agregarlo
+        cartItems.add(
+          CartItem(name: name, price: price, imagePath: imagePath, quantity: 1),
+        );
+      }
+    });
+  }
+
+  //Función para mostrar el carrito
+  void showCart() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => CartBottomSheet(
+        cartItems: cartItems,
+        onCartUpdated: () => setState(() {}),
+      ),
+    );
+  }
+
   List<Widget> myTabs = [
     //donut tab
     MyTab(iconPath: 'lib/icons/donut.png', iconName: 'Donuts'),
@@ -81,11 +123,11 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: TabBarView(
                 children: [
-                  DonutTab(),
-                  BurgerTab(),
-                  SmoothieTab(),
-                  PanCakeTab(),
-                  PizzaTab(),
+                  DonutTab(onAddToCart: addToCart),
+                  BurgerTab(onAddToCart: addToCart),
+                  SmoothieTab(onAddToCart: addToCart),
+                  PancakeTab(onAddToCart: addToCart),
+                  PizzaTab(onAddToCart: addToCart),
                 ],
               ),
             ),
@@ -100,35 +142,38 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.only(left: 28),
                     child: Column(
+                      //se pega a la izquierda
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '2 Items | \$45',
+                          "$itemCount ${itemCount == 1 ? 'Item' : 'Items'} | \$${totalPrice.toStringAsFixed(2)}",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          'Delivery Charges Included',
+                          'Delivery charges included',
                           style: TextStyle(fontSize: 12),
                         ),
                       ],
                     ),
                   ),
+                  //botón de checkout
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.pink,
                       padding: EdgeInsets.symmetric(
-                        horizontal: 24,
                         vertical: 12,
+                        horizontal: 24,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: showCart,
                     child: const Text(
-                      'View cart',
+                      'View Cart',
                       style: TextStyle(
                         color: Colors.white,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
